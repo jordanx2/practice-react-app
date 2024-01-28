@@ -2,6 +2,11 @@ import './App.css';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+/*
+  create a prompt screen to let the user enter the admin pin
+  
+*/
+
 const notify = (data) => toast('just clicked: ' + data);
 
 function Header(){
