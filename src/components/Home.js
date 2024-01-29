@@ -21,6 +21,7 @@ function ImageTextElementDrag({ elementName, imgLocation, onClick }) {
       defaultPosition={{ x: 0, y: 0 }}
       position={null}
       scale={1}
+      bounds='parent'
       >    
         <div className='image-text-container' onClick={onClick}>
           <img src={imgLocation} alt={elementName + ' function'} />

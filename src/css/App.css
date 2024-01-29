@@ -28,7 +28,7 @@
   height: fit-content;
 }
 
-.home-row-inner > div{
+.home-row-inner > .image-text-container{
   /* border: 2px solid purple; */
   display: flex;
   flex-basis: 30%;
@@ -37,9 +37,11 @@
 }
 
 .home-row-inner {
+  position: relative;
   background: #f1f1f1;
   display: flex;
   width: fit-content;
+  height: fit-content;
   flex-wrap: wrap;
   font-size: 12px;
   justify-content: center;
