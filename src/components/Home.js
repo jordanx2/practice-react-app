@@ -15,14 +15,7 @@ export function ImageTextElement({ elementName, imgLocation, onClick }) {
 
 function ImageTextElementDrag({ elementName, imgLocation, onClick }) {
   return (
-      <Draggable
-      key={elementName}
-      axis="both"
-      defaultPosition={{ x: 0, y: 0 }}
-      position={null}
-      scale={1}
-      bounds='parent'
-      >    
+      <Draggable key={elementName} bounds='parent'>    
         <div className='image-text-container' onClick={onClick}>
           <img src={imgLocation} alt={elementName + ' function'} />
           <p>{elementName}</p>
