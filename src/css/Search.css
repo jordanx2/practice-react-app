@@ -1,0 +1,29 @@
+.search-box{
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 98%;
+    margin: 8px;
+    padding: 10px;
+}
+
+.custom-options{
+    position: absolute;
+    right: 0;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.search-field{
+    width: 30%;
+    outline: 1px solid #bfbfbf;
+    border: none;
+}
+
+.add-patient-btn{
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    outline: 1px solid #bfbfbf;
+    cursor: pointer;
+}
