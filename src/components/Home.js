@@ -1,23 +1,42 @@
 import '../css/App.css';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Draggable from 'react-draggable';
+import React from 'react';
 
-export function ImageTextElement({elementName, imgLocation, onClick}){
-    return (
-      <div onClick={onClick} className='image-text-container'>
-        <img src={imgLocation} alt={elementName + 'function'}></img>
-        <p> {elementName} </p>
+export function ImageTextElement({ elementName, imgLocation, onClick }) {
+  return (
+      <div className='image-text-container handle' onClick={onClick}>
+        <img src={imgLocation} alt={elementName + ' function'} />
+        <p>{elementName}</p>
       </div>
-    );
-  }
+  );
+}
+
+function ImageTextElementDrag({ elementName, imgLocation, onClick }) {
+  return (
+      <Draggable
+      key={elementName}
+      axis="both"
+      defaultPosition={{ x: 0, y: 0 }}
+      position={null}
+      scale={1}
+      >    
+        <div className='image-text-container' onClick={onClick}>
+          <img src={imgLocation} alt={elementName + ' function'} />
+          <p>{elementName}</p>
+        </div>
+      </Draggable>
+  );
+}
 
   function HomeItemsContainer({containerName, containerItems}){
     return (
       <div className='home-row-outer'>
         <p className='home-row-container-name'>{containerName}</p>
-        <div className='home-row-inner'>
+        <div className='home-row-inner' id='draggable-bound'>
           {containerItems.map(item => (
-            <ImageTextElement className='home-row-item' elementName={item} imgLocation='/imgs/testing.png'/>
+              <ImageTextElementDrag className='home-row-item' elementName={item} imgLocation='/imgs/testing.png'/>
           ))}
         </div>
       </div>
@@ -28,12 +47,13 @@ export function ImageTextElement({elementName, imgLocation, onClick}){
     return (
       <div className='home-row-container'>
         { Object.entries(containers).map(([name, items]) => (
-          <HomeItemsContainer key={name} containerName={name} containerItems={items}/>
+            <HomeItemsContainer key={name} containerName={name} containerItems={items}/>
         ))}
         
       </div>
     );
   }
+
   
   function Home() {
     const row1 = {
@@ -52,8 +72,8 @@ export function ImageTextElement({elementName, imgLocation, onClick}){
   
     return (
       <div className="App">
-        <HomeRowContainer containers={row1} />
-        <HomeRowContainer containers={row2} />
+          <HomeRowContainer containers={row1} />
+          <HomeRowContainer containers={row2} />
   
         <ToastContainer />
       </div>
