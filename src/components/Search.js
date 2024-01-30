@@ -3,6 +3,8 @@ import '../css/Search.css';
 import patientsData from './SamplePatients';
 import Highlighter from 'react-highlight-words';
 import React, { useState, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const tableHeaders = ['Name', 'Date of birth (age)', 'Address', 
 'Contact Number', 'Patient ID', 'Social Security Number'];
@@ -13,16 +15,26 @@ function Search(){
     );
 }
 
+const notify = (data) => {
+    toast(data);
+};
+
 function RenderSearch(){    
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResult, setSearchResult] = useState([]);
 
     useEffect(() => {
         const delayBounce = setTimeout(() => {
-            setSearchResult(PerformSearch(searchTerm));
+            const result = PerformSearch(searchTerm);
+            setSearchResult(result);
+
+            if(result.length == 0 && searchTerm !== ''){
+                notify('No results found for: ' + searchTerm);
+            }            
         }, 100);
         return () => clearTimeout(delayBounce);
     }, [searchTerm]);
+
 
     return (
         <div>
@@ -33,12 +45,13 @@ function RenderSearch(){
                 onChange={(event) => setSearchTerm(event.target.value)}></input>
                 <div className='custom-options'>
                     <ToggleSwitch/>
-                    <button className='add-patient-btn'>Add Patient</button>                    
+                    <button className='add-patient-btn' onClick=''>Add Patient</button>                    
                 </div>
             </div>
             <hr/>
 
             <RenderTable data={searchResult} searchTerm={searchTerm}/>
+            <ToastContainer/>
         </div>
     );
 }
