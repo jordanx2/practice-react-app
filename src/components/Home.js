@@ -3,6 +3,7 @@ import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Draggable from 'react-draggable';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function ImageTextElement({ elementName, imgLocation, onClick }) {
   return (
@@ -14,11 +15,14 @@ export function ImageTextElement({ elementName, imgLocation, onClick }) {
 }
 
 function ImageTextElementDrag({ elementName, imgLocation, onClick }) {
+  const navigate = useNavigate();
   return (
       <Draggable key={elementName} bounds='parent'>    
         <div className='image-text-container' onClick={onClick}>
           <img src={imgLocation} alt={elementName + ' function'} />
-          <p>{elementName}</p>
+          <a >
+            <p>{elementName}</p>
+          </a>
         </div>
       </Draggable>
   );
@@ -48,8 +52,7 @@ function ImageTextElementDrag({ elementName, imgLocation, onClick }) {
     );
   }
 
-  
-  function Home() {
+  function RenderHome(){
     const row1 = {
       'Patent Management' : ['Book Appointment', 'Find Patent', 'Web Patent Approval'],
       'Examinations': ['Clinical Visit', 'Images and Documents', 'Referrals'],
@@ -68,6 +71,17 @@ function ImageTextElementDrag({ elementName, imgLocation, onClick }) {
       <div className="App">
           <HomeRowContainer containers={row1} />
           <HomeRowContainer containers={row2} />
+  
+        <ToastContainer />
+      </div>
+    );
+  }
+
+  
+  function Home() {
+    return (
+      <div className="App">
+          <RenderHome />
   
         <ToastContainer />
       </div>

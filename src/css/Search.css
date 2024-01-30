@@ -27,3 +27,21 @@
     outline: 1px solid #bfbfbf;
     cursor: pointer;
 }
+
+.search-table{
+    width: 100vw;
+    padding: 15px;
+    height: 150px;
+}
+
+th{
+    background: #f2f2f2;
+    text-align: left;
+    font-weight: 600;
+}
+
+td{
+    font-size: 14px;
+    border-bottom: 2px solid #f2f2f2;
+    
+}
