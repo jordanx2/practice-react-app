@@ -1,6 +1,7 @@
 import '../css/ToggleSwitch.css';
 import '../css/Search.css';
 import patientsData from './SamplePatients';
+import Highlighter from 'react-highlight-words';
 import React, { useState, useEffect } from 'react';
 
 const tableHeaders = ['Name', 'Date of birth (age)', 'Address', 
@@ -19,7 +20,7 @@ function RenderSearch(){
     useEffect(() => {
         const delayBounce = setTimeout(() => {
             setSearchResult(PerformSearch(searchTerm));
-        }, 900);
+        }, 100);
         return () => clearTimeout(delayBounce);
     }, [searchTerm]);
 
@@ -37,38 +38,52 @@ function RenderSearch(){
             </div>
             <hr/>
 
-            {/* <RenderTable data={patientsData}/> */}
+            <RenderTable data={searchResult} searchTerm={searchTerm}/>
         </div>
     );
 }
 
 function PerformSearch(search){
-    const results = patientsData.filter((element) => element["Name"].includes(search));
-    console.log(results);
+    const results = patientsData.filter((element) => element["Name"].toLowerCase().includes(search.toLowerCase()));
     return results;
 
 }
 
-function RenderTable({data}){
+function RenderTable({ data, searchTerm }) {
     return (
-        <div style={{overflow:'auto', height: '300px'}}>
-            <table className='search-table'>
-                {tableHeaders.map(header => (<th>{header}</th>))}
-                {data.map((data, key) => 
-                {return (
-                    <tr key={key}>
-                        <td>{data.Name}</td>
-                        <td>{data['Date of birth (age)']}</td>
-                        <td>{data.Address}</td>
-                        <td>{data['Contact Number']}</td>
-                        <td>{data['Patient ID']}</td>
-                        <td>{data['Social Security Number']}</td>
-                    </tr>
-                )})}
-            </table>
-        </div>
+      <div style={{ overflow: 'auto', height: '300px' }}>
+        <table className='search-table'>
+          <thead>
+            <tr>
+              {tableHeaders.map((header, index) => (
+                <th key={index}>{header}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item, key) => (
+              <tr key={key}>
+                <td>
+                  <Highlighter
+                    highlightClassName="search-highlight"
+                    searchWords={[searchTerm]}
+                    autoEscape={true}
+                    textToHighlight={item.Name}
+                  />
+                </td>
+                <td>{item['Date of birth (age)']}</td>
+                <td>{item.Address}</td>
+                <td>{item['Contact Number']}</td>
+                <td>{item['Patient ID']}</td>
+                <td>{item['Social Security Number']}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     );
-}
+  }
+  
 
 function ToggleSwitch() {
     const [isToggled, setIsToggled] = useState(false);
